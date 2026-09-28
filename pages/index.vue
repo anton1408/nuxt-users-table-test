@@ -8,52 +8,29 @@
     @update:perPage="perPage = $event"
   />
 
-  <UserTable
-    :users="paginatedUsers"
-    @sort="onSort"
-  />
+  <UserTable :users="paginatedUsers" @sort="onSort" />
 
   <div class="pagination">
-    <button
-      @click="page--"
-      :disabled="page === 1"
-    >
-      Prev
-    </button>
+    <button :disabled="page === 1" @click="page--">Prev</button>
 
     <span>{{ page }} / {{ totalPages }}</span>
 
-    <button
-      @click="page++"
-      :disabled="page === totalPages"
-    >
-      Next
-    </button>
+    <button :disabled="page === totalPages" @click="page++">Next</button>
   </div>
 </template>
 
 <script setup>
-import { users } from '~/data/users'
-import { useUsersTable } from '~/composables/useUsersTable'
+import { users } from '~/data/users';
+import { useUsersTable } from '~/composables/useUsersTable';
 
-const {
-  search,
-  role,
-  sortBy,
-  sortDirection,
-  page,
-  perPage,
-  paginatedUsers,
-  totalPages,
-} = useUsersTable(users)
+const { search, role, sortBy, sortDirection, page, perPage, paginatedUsers, totalPages } = useUsersTable(users);
 
 function onSort(field) {
   if (sortBy.value === field) {
-    sortDirection.value =
-      sortDirection.value === 'asc' ? 'desc' : 'asc'
+    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
   } else {
-    sortBy.value = field
-    sortDirection.value = 'asc'
+    sortBy.value = field;
+    sortDirection.value = 'asc';
   }
 }
 </script>
