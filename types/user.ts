@@ -1,4 +1,5 @@
 export const ROLES = ['admin', 'manager', 'user'] as const;
+export const PER_PAGE_OPTIONS = [10, 15, 20] as const;
 
 export type TRole = (typeof ROLES)[number];
 

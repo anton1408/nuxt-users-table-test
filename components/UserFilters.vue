@@ -10,14 +10,14 @@
 
     <BaseSelect
       :model-value="perPage"
-      :options="[10, 15, 20]"
+      :options="PER_PAGE_OPTIONS"
       @update:model-value="$emit('update:perPage', Number($event))"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ROLES, type TRole } from '~/types/user';
+import { ROLES, PER_PAGE_OPTIONS, type TRole } from '~/types/user';
 
 interface IProps {
   search: string;
