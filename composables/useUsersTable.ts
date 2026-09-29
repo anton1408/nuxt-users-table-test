@@ -8,15 +8,6 @@ export function useUsersTable(users: TUser[]) {
   // filters
   const search = ref('');
   const role = ref<TRole | null>(null);
-
-  // sorting
-  const sortBy = ref<TSortBy>(null);
-  const sortDirection = ref<TSortDirection>('asc');
-
-  // pagination
-  const page = ref(1);
-  const perPage = ref(10);
-
   const filteredUsers = computed(() => {
     const query = search.value.trim().toLowerCase();
     const selectedRole = role.value;
@@ -30,18 +21,51 @@ export function useUsersTable(users: TUser[]) {
     });
   });
 
+  // sorting
+  const sortBy = ref<TSortBy>(null);
+  const sortDirection = ref<TSortDirection>('asc');
+  const sortedUsers = computed(() => {
+    if (!sortBy.value) return filteredUsers.value;
+
+    return [...filteredUsers.value].sort((a, b) => {
+      if (sortBy.value === 'age') {
+        return sortDirection.value === 'asc' ? a.age - b.age : b.age - a.age;
+      }
+
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+
+      return sortDirection.value === 'asc' ? dateA - dateB : dateB - dateA;
+    });
+  });
+
+  function onSort(field: TSortField) {
+    if (sortBy.value === field) {
+      sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+    } else {
+      sortBy.value = field;
+      sortDirection.value = 'asc';
+    }
+  }
+
+  // pagination
+  const page = ref(1);
+  const perPage = ref(10);
+
   // TODO:
-  // - sortedUsers
   // - paginatedUsers
   // - totalPages
-  const paginatedUsers = filteredUsers;
+  const paginatedUsers = sortedUsers;
   const totalPages = null;
 
   return {
     search,
     role,
+
     sortBy,
     sortDirection,
+    onSort,
+
     page,
     perPage,
 

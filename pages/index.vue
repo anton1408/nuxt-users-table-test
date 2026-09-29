@@ -23,16 +23,7 @@
 import { users } from '~/data/users';
 import { useUsersTable, type TSortField } from '~/composables/useUsersTable';
 
-const { search, role, sortBy, sortDirection, page, perPage, paginatedUsers, totalPages } = useUsersTable(users);
-
-function onSort(field: TSortField) {
-  if (sortBy.value === field) {
-    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
-  } else {
-    sortBy.value = field;
-    sortDirection.value = 'asc';
-  }
-}
+const { search, role, sortBy, sortDirection, onSort, page, perPage, paginatedUsers, totalPages } = useUsersTable(users);
 </script>
 
 <style scoped>
