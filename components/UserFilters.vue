@@ -6,7 +6,7 @@
       @input="$emit('update:search', ($event.target as HTMLInputElement).value)"
     />
 
-    <BaseSelect :model-value="role" :options="ROLES" @update:model-value="$emit('update:role', $event)" />
+    <BaseSelect :model-value="role" :options="ROLES" nullable @update:model-value="$emit('update:role', $event)" />
 
     <BaseSelect
       :model-value="perPage"

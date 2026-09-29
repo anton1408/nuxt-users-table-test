@@ -1,6 +1,6 @@
 import { ROLES, type TUser, type TRole } from '~/types/user';
 
-export const users: TUser[] = Array.from({ length: 50 }, (_, i) => ({
+export const users: TUser[] = Array.from({ length: 200 }, (_, i) => ({
   id: i + 1,
   name: `User ${i + 1}`,
   email: `user${i + 1}@example.com`,

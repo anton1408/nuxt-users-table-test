@@ -8,6 +8,7 @@ export function useUsersTable(users: TUser[]) {
   // filters
   const search = ref('');
   const role = ref<TRole | null>(null);
+
   const filteredUsers = computed(() => {
     const query = search.value.trim().toLowerCase();
     const selectedRole = role.value;
@@ -24,6 +25,7 @@ export function useUsersTable(users: TUser[]) {
   // sorting
   const sortBy = ref<TSortBy>(null);
   const sortDirection = ref<TSortDirection>('asc');
+
   const sortedUsers = computed(() => {
     if (!sortBy.value) return filteredUsers.value;
 
@@ -52,11 +54,17 @@ export function useUsersTable(users: TUser[]) {
   const page = ref(1);
   const perPage = ref(10);
 
-  // TODO:
-  // - paginatedUsers
-  // - totalPages
-  const paginatedUsers = sortedUsers;
-  const totalPages = null;
+  const paginatedUsers = computed(() =>
+    sortedUsers.value.slice((page.value - 1) * perPage.value, page.value * perPage.value),
+  );
+  const totalPages = computed(() => Math.max(1, Math.ceil(sortedUsers.value.length / perPage.value)));
+
+  watch([search, role, perPage], () => {
+    page.value = 1;
+  });
+  watch(totalPages, (max) => {
+    if (page.value > max) page.value = max;
+  });
 
   return {
     search,
