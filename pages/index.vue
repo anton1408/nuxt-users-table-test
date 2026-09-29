@@ -1,9 +1,9 @@
 <template>
   <UserFilters
-    :search="search"
+    :search="searchInput"
     :role="role"
     :perPage="perPage"
-    @update:search="search = $event"
+    @update:search="searchInput = $event"
     @update:role="role = $event"
     @update:perPage="perPage = $event"
   />
@@ -23,7 +23,8 @@
 import { users } from '~/data/users';
 import { useUsersTable, type TSortField } from '~/composables/useUsersTable';
 
-const { search, role, sortBy, sortDirection, onSort, page, perPage, paginatedUsers, totalPages } = useUsersTable(users);
+const { searchInput, role, sortBy, sortDirection, onSort, page, perPage, paginatedUsers, totalPages } =
+  useUsersTable(users);
 </script>
 
 <style scoped>

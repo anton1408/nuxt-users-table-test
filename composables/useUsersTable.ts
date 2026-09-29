@@ -6,6 +6,7 @@ export type TSortBy = TSortField | null;
 export type TSortDirection = 'asc' | 'desc';
 
 const DEFAULT_PER_PAGE = 10;
+const SEARCH_DEBOUNCE_MS = 400;
 
 function singleQueryValue(v: unknown): string | undefined {
   if (Array.isArray(v)) v = v[0];
@@ -41,7 +42,10 @@ export function useUsersTable(users: TUser[]) {
   const router = useRouter();
 
   // filters
-  const search = ref(singleQueryValue(route.query.search)?.trim() ?? '');
+  const initialSearch = singleQueryValue(route.query.search)?.trim() ?? '';
+
+  const searchInput = ref(initialSearch); // updates on every keystroke
+  const search = useDebouncedRef(searchInput, SEARCH_DEBOUNCE_MS); // debounced
   const role = ref<TRole | null>(parseRole(route.query.role));
 
   const filteredUsers = computed(() => {
@@ -125,13 +129,13 @@ export function useUsersTable(users: TUser[]) {
     router.replace({ query: buildQueryFromState() });
   });
 
-  //// Normalize a "dirty"/invalid URL once on the client
+  // Normalize a "dirty"/invalid URL once on the client
   onMounted(() => {
     router.replace({ query: buildQueryFromState() });
   });
 
   return {
-    search,
+    searchInput,
     role,
 
     sortBy,
