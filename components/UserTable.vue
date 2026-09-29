@@ -29,15 +29,17 @@
   </div>
 </template>
 
-<script setup>
-defineProps({
-  users: {
-    type: Array,
-    required: true,
-  },
-});
+<script setup lang="ts">
+import type { TUser } from '~/types/user';
+import type { TSortField } from '~/composables/useUsersTable';
 
-defineEmits(['sort']);
+interface IProps {
+  users: TUser[];
+}
+
+const { users } = defineProps<IProps>();
+
+defineEmits<{ sort: [field: TSortField] }>();
 </script>
 
 <style scoped>

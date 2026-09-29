@@ -1,12 +1,12 @@
 <template>
   <div class="filters">
-    <input :value="search" placeholder="Search by name or email" @input="$emit('update:search', $event.target.value)" />
-
-    <BaseSelect
-      :model-value="role"
-      :options="['admin', 'manager', 'user']"
-      @update:model-value="$emit('update:role', $event)"
+    <input
+      :value="search"
+      placeholder="Search by name or email"
+      @input="$emit('update:search', ($event.target as HTMLInputElement).value)"
     />
+
+    <BaseSelect :model-value="role" :options="ROLES" @update:model-value="$emit('update:role', $event)" />
 
     <BaseSelect
       :model-value="perPage"
@@ -16,14 +16,22 @@
   </div>
 </template>
 
-<script setup>
-defineProps({
-  search: String,
-  role: String,
-  perPage: Number,
-});
+<script setup lang="ts">
+import { ROLES, type TRole } from '~/types/user';
 
-defineEmits(['update:search', 'update:role', 'update:perPage']);
+interface IProps {
+  search: string;
+  role: TRole | null;
+  perPage: number;
+}
+
+const { search, role, perPage } = defineProps<IProps>();
+
+defineEmits<{
+  'update:search': [value: string];
+  'update:role': [value: TRole | null];
+  'update:perPage': [value: number];
+}>();
 </script>
 
 <style scoped>

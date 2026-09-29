@@ -7,15 +7,14 @@
   </select>
 </template>
 
-<script setup>
-defineProps({
-  options: {
-    type: Array,
-    required: true,
-  },
-});
+<script setup lang="ts" generic="T extends string | number">
+interface IProps {
+  options: readonly T[];
+}
 
-const model = defineModel();
+const { options } = defineProps<IProps>();
+
+const model = defineModel<T | null>({ default: null });
 </script>
 
 <style scoped>

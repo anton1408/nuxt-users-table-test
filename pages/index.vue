@@ -19,13 +19,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { users } from '~/data/users';
-import { useUsersTable } from '~/composables/useUsersTable';
+import { useUsersTable, type TSortField } from '~/composables/useUsersTable';
 
 const { search, role, sortBy, sortDirection, page, perPage, paginatedUsers, totalPages } = useUsersTable(users);
 
-function onSort(field) {
+function onSort(field: TSortField) {
   if (sortBy.value === field) {
     sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
   } else {
