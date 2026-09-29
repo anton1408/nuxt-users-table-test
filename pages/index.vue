@@ -8,7 +8,7 @@
     @update:perPage="perPage = $event"
   />
 
-  <UserTable :users="paginatedUsers" @sort="onSort" />
+  <UserTable :users="paginatedUsers" :sort-by="sortBy" :sort-direction="sortDirection" @sort="onSort" />
 
   <div class="pagination">
     <button :disabled="page === 1" @click="page--">Prev</button>
