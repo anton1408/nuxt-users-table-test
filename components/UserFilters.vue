@@ -1,8 +1,9 @@
 <template>
-  <div class="filters">
+  <div class="mb-3 flex gap-2">
     <input
       :value="search"
       placeholder="Search by name or email"
+      class="rounded border border-gray-300 px-2 py-1.5 dark:border-gray-600 dark:bg-gray-800"
       @input="$emit('update:search', ($event.target as HTMLInputElement).value)"
     />
 
@@ -33,11 +34,3 @@ defineEmits<{
   'update:perPage': [value: number];
 }>();
 </script>
-
-<style scoped>
-.filters {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-</style>

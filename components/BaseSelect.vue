@@ -1,5 +1,5 @@
 <template>
-  <select v-model="model" class="select">
+  <select v-model="model" class="rounded border border-gray-300 px-2 py-1.5 dark:border-gray-600 dark:bg-gray-800">
     <option v-if="nullable" :value="null">All</option>
     <option v-for="option in options" :key="option" :value="option">
       {{ option }}
@@ -17,9 +17,3 @@ const { options, nullable } = defineProps<IProps>();
 
 const model = defineModel<T | null>({ default: null });
 </script>
-
-<style scoped>
-.select {
-  padding: 6px;
-}
-</style>

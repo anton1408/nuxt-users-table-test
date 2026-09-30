@@ -18,8 +18,11 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@nuxtjs/color-mode": "^4.0.1",
+    "@tailwindcss/vite": "^4.3.3",
     "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.11"
   }

@@ -1,36 +1,42 @@
 <template>
-  <div class="table-wrapper">
-    <table>
+  <div class="max-h-[400px] overflow-auto rounded border border-gray-200 dark:border-gray-700">
+    <table class="w-full border-collapse text-left text-sm">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
+          <th class="sticky top-0 z-10 bg-white px-3 py-2 dark:bg-gray-900">Name</th>
+          <th class="sticky top-0 z-10 bg-white px-3 py-2 dark:bg-gray-900">Email</th>
 
-          <th class="sortable" :aria-sort="ariaSort('age')" @click="$emit('sort', 'age')">
-            Age <span class="sort-indicator">{{ sortIndicator('age') }}</span>
+          <th
+            class="sticky top-0 z-10 cursor-pointer bg-white px-3 py-2 select-none hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800"
+            :aria-sort="ariaSort('age')"
+            @click="$emit('sort', 'age')"
+          >
+            Age <span class="inline-block w-3">{{ sortIndicator('age') }}</span>
           </th>
 
-          <th>Role</th>
+          <th class="sticky top-0 z-10 bg-white px-3 py-2 dark:bg-gray-900">Role</th>
 
-          <th class="sortable" :aria-sort="ariaSort('createdAt')" @click="$emit('sort', 'createdAt')">
-            Created <span class="sort-indicator">{{ sortIndicator('createdAt') }}</span>
+          <th
+            class="sticky top-0 z-10 cursor-pointer bg-white px-3 py-2 select-none hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800"
+            :aria-sort="ariaSort('createdAt')"
+            @click="$emit('sort', 'createdAt')"
+          >
+            Created <span class="inline-block w-3">{{ sortIndicator('createdAt') }}</span>
           </th>
         </tr>
       </thead>
 
       <tbody>
         <tr v-if="users.length === 0">
-          <td class="empty" :colspan="5">No users found</td>
+          <td class="px-3 py-6 text-center text-gray-500 dark:text-gray-400" :colspan="5">No users found</td>
         </tr>
 
-        <tr v-for="user in users" v-else :key="user.id">
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.age }}</td>
-          <td>{{ user.role }}</td>
-          <td>
-            {{ new Date(user.createdAt).toLocaleDateString() }}
-          </td>
+        <tr v-for="user in users" v-else :key="user.id" class="border-t border-gray-100 dark:border-gray-800">
+          <td class="px-3 py-2">{{ user.name }}</td>
+          <td class="px-3 py-2">{{ user.email }}</td>
+          <td class="px-3 py-2">{{ user.age }}</td>
+          <td class="px-3 py-2">{{ user.role }}</td>
+          <td class="px-3 py-2">{{ new Date(user.createdAt).toLocaleDateString() }}</td>
         </tr>
       </tbody>
     </table>
@@ -63,31 +69,3 @@ function ariaSort(field: TSortField): 'ascending' | 'descending' | 'none' {
   return sortDirection === 'asc' ? 'ascending' : 'descending';
 }
 </script>
-
-<style scoped>
-.table-wrapper {
-  max-height: 400px;
-  overflow: auto;
-}
-
-thead th {
-  position: sticky;
-  top: 0;
-  background: #fff;
-}
-
-th.sortable {
-  cursor: pointer;
-}
-
-.sort-indicator {
-  display: inline-block;
-  width: 1em;
-}
-
-.empty {
-  text-align: center;
-  padding: 24px;
-  color: #888;
-}
-</style>
